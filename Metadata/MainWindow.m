@@ -60,12 +60,12 @@
 
 -(void)main
 {
-    resultScrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(12,325,637,270)];
-    resultTextView = [[NSTextView alloc] initWithFrame:NSMakeRect(5,310,637,270)];
-    resultHeader = [[NSTextField alloc] initWithFrame:NSMakeRect(12,570,100,50)];
-    conclusionsScrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(12,25,637,270)];
-    conclusionsTextView = [[NSTextView alloc] initWithFrame:NSMakeRect(12,25,637,270)];
-    conclusionsHeader = [[NSTextField alloc] initWithFrame:NSMakeRect(12,270,100,50)];
+    resultScrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(12,255,677,380)];
+    resultTextView = [[NSTextView alloc] initWithFrame:NSMakeRect(5,240,677,380)];
+    resultHeader = [[NSTextField alloc] initWithFrame:NSMakeRect(12,610,100,50)];
+    conclusionsScrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(12,25,677,200)];
+    conclusionsTextView = [[NSTextView alloc] initWithFrame:NSMakeRect(12,25,677,200)];
+    conclusionsHeader = [[NSTextField alloc] initWithFrame:NSMakeRect(12,200,100,50)];
     
     [self createTextFieldHeader:resultHeader];
     [self createTextFieldHeader:conclusionsHeader];

@@ -34,135 +34,39 @@
     }
 }
 
-
 - (IBAction)saveLocal:(id)sender
 {
-    
     NSString * val2;
     [self metaDataTag:@"0020,000d" extractTag:&val2];
     
-    NSFileManager* fm = [NSFileManager new];
-    
-    
-    BOOL isDir;
-    
-    
-    // NSMutableData *data = [NSKeyedArchiver archivedDataWithRootObject:requiringSecureCoding:&error:textFieldText];
     NSArray *paths4 = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory4 = [paths4 objectAtIndex:0];
-    NSString * str11 = [documentsDirectory4 stringByAppendingString:@"/OsirixFiles"];
-    BOOL exists = [fm fileExistsAtPath:str11 isDirectory:&isDir];
-    if (exists) {
-        /* file exists */
-        if (isDir) {
-            /* file is a directory */
+    NSString * str11 = [documentsDirectory4 stringByAppendingString:@"/OsirixFiles/"];
+    NSString * str3 = [str11 stringByAppendingString:val2];
+    NSString * str4 = [str3 stringByAppendingString:@"1"];
+    rezultatPath = [str4 stringByAppendingString:@".html"];
             
-            NSArray *paths4 = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            NSString *documentsDirectory4 = [paths4 objectAtIndex:0];
-            NSString * str11 = [documentsDirectory4 stringByAppendingString:@"/OsirixFiles/"];
-            NSString * str3 = [str11 stringByAppendingString:val2];
-            NSString * str4 = [str3 stringByAppendingString:@"1"];
-            rezultatPath = [str4 stringByAppendingString:@".html"];
-            
-            NSArray *paths5 = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            NSString *documentsDirectory5 = [paths5 objectAtIndex:0];
-            NSString * str12 = [documentsDirectory5 stringByAppendingString:@"/OsirixFiles/"];
-            NSString * str6 = [str12 stringByAppendingString:val2];
-            NSString * str7 = [str6 stringByAppendingString:@"2"];
-            concluziiPath = [str7 stringByAppendingString:@".html"];
-            
-            NSFileManager *fileManager = [NSFileManager defaultManager];
-            if ([fileManager fileExistsAtPath:rezultatPath])
-            {
-                
-                NSTextView * rezultatLabel = [mainWindow getResultTextView];
-                NSMutableAttributedString *s = [rezultatLabel.attributedString mutableCopy];
-                NSDictionary *documentAttributes = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType};
-                NSData *htmlData = [s dataFromRange:NSMakeRange(0, s.length) documentAttributes:documentAttributes error:NULL];
-                NSString *htmlString = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
-                
-                [htmlString writeToFile:rezultatPath
-                             atomically:YES
-                               encoding:NSASCIIStringEncoding
-                                  error:nil];
-                
-                
-                
-            }
-            
-            else
-            {
-                
-                [[NSFileManager defaultManager] createFileAtPath:rezultatPath
-                                                        contents:nil
-                                                      attributes:nil];
-                
-                
-                
-            }
-            if ([fileManager fileExistsAtPath:concluziiPath])
-            {
-                NSTextView * concluziiLabel = [mainWindow getConclusionTextView];
-                NSMutableAttributedString *s = [concluziiLabel.attributedString mutableCopy];
-                NSDictionary *documentAttributes = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType};
-                NSData *htmlData = [s dataFromRange:NSMakeRange(0, s.length) documentAttributes:documentAttributes error:NULL];
-                NSString *htmlString = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
-                
-                [htmlString writeToFile:concluziiPath
-                             atomically:YES
-                               encoding:NSASCIIStringEncoding
-                                  error:nil];
-                
-            }
-            
-            else
-            {
-                
-                [[NSFileManager defaultManager] createFileAtPath:concluziiPath
-                                                        contents:nil
-                                                      attributes:nil];
-                
-                
-                
-            }
-        }
-    }
+    NSArray *paths5 = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory5 = [paths5 objectAtIndex:0];
+    NSString * str12 = [documentsDirectory5 stringByAppendingString:@"/OsirixFiles/"];
+    NSString * str6 = [str12 stringByAppendingString:val2];
+    NSString * str7 = [str6 stringByAppendingString:@"2"];
+    concluziiPath = [str7 stringByAppendingString:@".html"];
     
-    else
-    {
-        NSError* err = nil;
-        NSURL* docsurl =
-        [fm URLForDirectory:NSDocumentDirectory
-                   inDomain:NSUserDomainMask appropriateForURL:nil
-                     create:YES error:&err];
-        // error checking omitted
-        NSURL* myfolder = [docsurl URLByAppendingPathComponent:@"OsirixFiles"];
-        [fm createDirectoryAtURL:myfolder
-     withIntermediateDirectories:YES attributes:nil error:&err];
-        // error-checking omitted
-        
-        NSArray *paths4 = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory4 = [paths4 objectAtIndex:0];
-        NSString * str11 = [documentsDirectory4 stringByAppendingString:@"/OsirixFiles/"];
-        NSString * str3 = [str11 stringByAppendingString:val2];
-        NSString * str4 = [str3 stringByAppendingString:@"1"];
-        rezultatPath = [str4 stringByAppendingString:@".html"];
-        
-        NSArray *paths5 = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory5 = [paths5 objectAtIndex:0];
-        NSString * str12 = [documentsDirectory5 stringByAppendingString:@"/OsirixFiles/"];
-        NSString * str6 = [str12 stringByAppendingString:val2];
-        NSString * str7 = [str6 stringByAppendingString:@"2"];
-        concluziiPath = [str7 stringByAppendingString:@".html"];
-        [[NSFileManager defaultManager] createFileAtPath:rezultatPath
-                                                contents:nil
-                                              attributes:nil];
-        [[NSFileManager defaultManager] createFileAtPath:concluziiPath
-                                                contents:nil
-                                              attributes:nil];
-    }
+    NSTextView * rezultatLabel = [mainWindow getResultTextView];
+    NSMutableAttributedString *s = [rezultatLabel.attributedString mutableCopy];
+    NSDictionary *documentAttributes = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType};
+    NSData *htmlData = [s dataFromRange:NSMakeRange(0, s.length) documentAttributes:documentAttributes error:NULL];
+    NSString *htmlString = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
+    [htmlString writeToFile:rezultatPath atomically:YES encoding:NSASCIIStringEncoding error:nil];
+    
+    NSTextView * concluziiLabel = [mainWindow getConclusionTextView];
+    NSMutableAttributedString *s1 = [concluziiLabel.attributedString mutableCopy];
+    NSDictionary *documentAttributes1 = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType};
+    NSData *htmlData1 = [s dataFromRange:NSMakeRange(0, s1.length) documentAttributes:documentAttributes1 error:NULL];
+    NSString *htmlString1 = [[NSString alloc] initWithData:htmlData1 encoding:NSUTF8StringEncoding];
+    [htmlString1 writeToFile:concluziiPath atomically:YES encoding:NSASCIIStringEncoding error:nil];
 }
-
 
 - (NSData *)sendSynchronousRequest:(NSURLRequest *)request returningResponse:(NSURLResponse **)response error:(NSError **)error
 {
@@ -343,9 +247,9 @@
                                               attributes:nil];
     }
     
-    NSString * adressa =@"https://www.medicalimaging.ro/cloud/services/webapi/osirix/encapsulatepdf";
-    // NSURL *url = [NSURL URLWithString:@"http://192.168.0.245:8091/webapi/Osirix/EncapsulatePDF"];
-    NSURL *url = [NSURL URLWithString:adressa];
+    //NSString * adressa =@"https://www.medicalimaging.ro/cloud/services/webapi/osirix/encapsulatepdf";
+    NSURL *url = [NSURL URLWithString:@"http://192.168.0.245:8091/webapi/Osirix/EncapsulatePDF"];
+    //NSURL *url = [NSURL URLWithString:adressa];
     NSMutableURLRequest * urlRequest = [NSMutableURLRequest requestWithURL:url];
     //[self writeInLog:adressa];
     
@@ -381,7 +285,7 @@
                   NSData *byteArrayFrom64 = [[NSData alloc] initWithBase64EncodedString:forJSONObject[@"SuccessData"] options:1];
                   NSArray *paths5 = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
                   NSString *documentsDirectory5 = [paths5 objectAtIndex:0];
-                  NSString * str12 = [documentsDirectory5 stringByAppendingString:@"/OsirixFiles/"];
+                  NSString * str12 = [documentsDirectory5 stringByAppendingString:@"/Horos Data/INCOMING.noindex/"];
                   
                   NSString * str4 = [str12 stringByAppendingString:val2];
                   
@@ -477,8 +381,8 @@
 
 - (long) filterImage:(NSString*) menuName
 {
-    NSUInteger windowStyle = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable;
-    NSRect windowRect = NSMakeRect(700,700,660,700);
+    NSUInteger windowStyle = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable;
+    NSRect windowRect = NSMakeRect(700,700,700,740);
     NSWindow * window = [[NSWindow alloc] initWithContentRect: windowRect styleMask:windowStyle backing:NSBackingStoreBuffered defer:NO];
     mainWindow = [[MainWindow alloc] initWithName:window];
     [mainWindow main];
@@ -486,14 +390,14 @@
     NSFontManager *fontManager = [NSFontManager sharedFontManager];
     NSFont * fontButtons = [fontManager fontWithFamily:@"Avenir" traits:NSBoldFontMask weight:0 size:15];
     
-    NSRect frameLocalSave = NSMakeRect(0, 615, 130, 50);
+    NSRect frameLocalSave = NSMakeRect(0, 655, 130, 50);
     saveLocalButton = [[NSButton alloc]initWithFrame:frameLocalSave];
     [self createButton:saveLocalButton createButtonFont:@"boldItalic" createButtonTitle:@"Local Save"];
     [saveLocalButton setFont:fontButtons];
     [saveLocalButton setContentTintColor:[NSColor blackColor]];
     [saveLocalButton setAction:@selector(saveLocal:)];
     
-    NSRect frameConvertToDicom = NSMakeRect(126, 615, 159, 50);
+    NSRect frameConvertToDicom = NSMakeRect(126, 655, 159, 50);
     convertToDicomButton = [[NSButton alloc]initWithFrame:frameConvertToDicom];
     [self createButton:convertToDicomButton createButtonFont:@"boldItalic" createButtonTitle:@"Convert to DICOM"];
     [convertToDicomButton setFont:fontButtons];
@@ -535,9 +439,11 @@
     NSString * str9 = [documentsDirectory3 stringByAppendingString:@"/OsirixFiles"];
     BOOL isDir;
     BOOL exists = [fm fileExistsAtPath:str9 isDirectory:&isDir];
-    if (exists) {
+    if (exists)
+    {
         /* file exists */
-        if (isDir) {
+        if (isDir)
+        {
             /* file is a directory */
             NSArray *paths4 = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
             NSString *documentsDirectory4 = [paths4 objectAtIndex:0];
@@ -566,18 +472,11 @@
                 [rezultatLabel.textStorage setAttributedString:stringWithHTMLAttributes];
                 
                 
-                
-            }
             
+            }
             else
             {
-                
-                [[NSFileManager defaultManager] createFileAtPath:rezultatPath
-                                                        contents:nil
-                                                      attributes:nil];
-                
-                
-                
+                [[NSFileManager defaultManager] createFileAtPath:rezultatPath contents:nil attributes:nil];
             }
             if ([fileManager fileExistsAtPath:concluziiPath])
             {
